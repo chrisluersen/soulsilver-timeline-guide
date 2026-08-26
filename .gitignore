@@ -1,0 +1,12 @@
+# game state / backups never go to GitHub
+*.sav
+*.ml1
+*.ml2
+*.ml3
+*.ml4
+*.ml5
+*.ml6
+*.ml7
+*.ml8
+*.bak-v1
+*.log

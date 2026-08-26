@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoulSilver Playthrough Guide — The Trade Team</title>
+<style>  :root{
+    --bg:#eef1f6;          /* silver-blue canvas — SoulSilver / Lugia cool */
+    --bg-2:#e3e8f0;
+    --surface:#ffffff;
+    --surface-2:#f2f5fa;
+    --ink:#1d2632;
+    --muted:#56606d;
+    --muted-2:#8791a0;
+    --line:#d8dfea;
+    --accent:#5f7fae;      /* Lugia steel-blue */
+    --accent-strong:#46679b;
+    --accent-ink:#ffffff;
+    --fire:#e8643f;  --water:#3f8fe8;  --grass:#57a84f;  --elec:#e0b63a;
+    --psych:#b06ce0; --ghost:#7a5aa8;  --poison:#a45aa4; --bug:#86a83a;
+    --fight:#c25a3f; --ice:#57c8c8;    --fly:#5f8fd6;
+    --danger:#c44536; --good:#2f8f56;
+    --radius:14px;
+    --shadow:0 10px 28px rgba(29,38,50,.10);
+    --font-d:'Baloo 2','Space Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --font-b:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+    --mono:ui-monospace,'Cascadia Code',Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--font-d);line-height:1.15;letter-spacing:.005em;margin:0 0 .4em}
+  a{color:var(--accent-strong);text-decoration:none}
+  a:hover{text-decoration:underline}
+  p{margin:0 0 1em}
+  .wrap{max-width:1440px;margin:0 auto;padding:0 24px}
+
+  /* ---- Nav ---- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(238,241,246,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1440px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-weight:700;letter-spacing:.02em}
+  .brand .dot{width:20px;height:20px;border-radius:50%;background:linear-gradient(to bottom,#e3350d 0,#e3350d 42%,#222 42%,#222 58%,#fff 58%,#fff 100%);border:2px solid #222;position:relative;flex:0 0 20px}
+  .brand .dot::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:8px;height:8px;border-radius:50%;background:#fff;border:2px solid #222}
+  .nav-links{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+  .nav-links a{color:var(--muted);font-size:.86rem;padding:6px 10px;border-radius:8px;transition:color .15s,background .15s}
+  .nav-links a:hover{color:var(--ink);background:var(--surface);text-decoration:none}
+
+  /* ---- Hero ---- */
+  header.hero{padding:64px 0 40px;position:relative;overflow:hidden;background:linear-gradient(180deg,#f6f8fc 0%,var(--bg) 100%)}
+  header.hero::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(900px 400px at 80% -10%,rgba(95,127,174,.14),transparent 60%),
+    radial-gradient(600px 300px at 10% 20%,rgba(227,53,13,.05),transparent 60%);
+    pointer-events:none}
+  header.hero::after{content:"";position:absolute;right:4%;top:50%;transform:translateY(-50%);width:240px;height:240px;opacity:.12;pointer-events:none;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='none' stroke='%235f7fae' stroke-width='3'/%3E%3Cpath d='M4 50h92' stroke='%235f7fae' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='10' fill='none' stroke='%235f7fae' stroke-width='3'/%3E%3C/svg%3E") center/contain no-repeat}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-strong);font-family:var(--font-d);font-weight:700;margin-bottom:14px}
+  .kicker::before{content:"";width:22px;height:2px;background:var(--accent)}
+  header.hero h1{font-size:clamp(2rem,5vw,3.2rem);max-width:16ch;color:#16202c}
+  .lede{color:var(--muted);max-width:60ch;font-size:1.05rem}
+  .spread{display:flex;gap:10px;margin:22px 0 0;flex-wrap:wrap}
+  .tier-chip{font-family:var(--font-d);font-weight:600;font-size:.9rem;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+  .tier-chip b{color:var(--accent-strong)}
+  .ribbon{display:flex;gap:8px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+  .ribbon .mon{width:74px;height:74px;border-radius:14px;background:var(--surface);display:grid;place-items:center;border:1px solid var(--line);transition:transform .15s;box-shadow:0 2px 8px rgba(29,38,50,.05)}
+  .ribbon .mon:hover{transform:translateY(-4px)}
+  .ribbon img{width:52px;height:52px;image-rendering:pixelated}
+
+  /* ---- Sections ---- */
+  section{padding:52px 0 8px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
+  .sec-head h2{font-size:1.55rem}
+  .sec-head .no{font-family:var(--mono);color:var(--muted-2);font-size:.85rem;letter-spacing:.08em}
+  .sec-head::after{content:"";flex:1;height:1px;background:var(--line);align-self:center}
+
+  /* ---- Tables ---- */
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+  table{border-collapse:collapse;width:100%;background:var(--surface);font-size:.95rem}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--accent);color:var(--accent-ink);font-family:var(--font-d);font-size:.8rem;letter-spacing:.05em;text-transform:uppercase}
+  tbody tr:nth-child(even) td{background:#f7f9fc}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:var(--surface-2)}
+
+  .badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.72rem;font-weight:700;font-family:var(--font-d);letter-spacing:.04em;min-width:26px;text-align:center}
+  .b-S{background:#dff0e4;color:#1d6b3a}
+  .b-A{background:#f6ecd4;color:#7a5b12}
+  .b-B{background:#dce9f7;color:#2a5a8f}
+  .type{display:inline-block;padding:1px 9px;border-radius:6px;font-size:.7rem;font-weight:700;letter-spacing:.03em;color:#fff;margin:1px 2px 1px 0;border:1px solid rgba(0,0,0,.06)}
+  .t-fire{background:var(--fire)}.t-water{background:var(--water)}.t-grass{background:var(--grass)}
+  .t-elec{background:var(--elec);color:#1c1600}.t-psych{background:var(--psych)}
+  .t-ghost{background:var(--ghost)}.t-poison{background:var(--poison)}
+  .t-bug{background:var(--bug)}.t-fight{background:var(--fight)}
+  .t-ice{background:var(--ice);color:#0d1a1a}.t-fly{background:var(--fly)}
+
+  .phys{color:#b07d1f}.spec{color:#3d6fc4}
+
+  /* ---- Moveset table ---- */
+  .moves .mv{font-weight:700;color:var(--ink)}
+  .moves .lvl{color:var(--muted-2);font-size:.8rem;font-family:var(--mono)}
+  .moves td b{color:var(--accent-strong)}
+
+  /* ---- Member cards ---- */
+  .members{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;transition:transform .15s,border-color .15s,box-shadow .15s}
+  .card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
+  .card-top{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+  .sprite{width:76px;height:76px;flex:0 0 76px;background:var(--surface-2);border-radius:12px;display:grid;place-items:center;border:1px solid var(--line)}
+  .sprite img{width:60px;height:60px;image-rendering:pixelated}
+  .card-top h3{font-size:1.2rem;margin:0 0 4px}
+  .role{color:var(--muted);font-size:.85rem;margin:0}
+  .card h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-2);margin:16px 0 6px}
+  .card ul{margin:0;padding-left:18px}
+  .card li{margin-bottom:6px;font-size:.92rem}
+  .card li b{color:var(--accent-strong)}
+  .ability{display:inline-block;padding:1px 8px;border-radius:6px;background:var(--surface-2);border:1px solid var(--line);font-size:.78rem;color:var(--muted);margin-top:2px}
+
+  /* ---- Route timeline ---- */
+  .route{position:relative;margin:8px 0 0;padding-left:34px}
+  .route::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--line)}
+  .step{position:relative;margin-bottom:26px}
+  .step::before{content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);box-shadow:0 0 0 2px var(--line)}
+  .step h3{font-size:1.05rem;margin-bottom:4px}
+  .step h3 .ph{color:var(--accent-strong);font-family:var(--mono);font-weight:400;font-size:.85rem;margin-right:10px}
+  .step p{margin:0;color:var(--muted);font-size:.93rem}
+  .step p b{color:var(--ink)}
+  .step ul.grab{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:5px}
+  .step ul.grab li{color:var(--muted);font-size:.9rem;padding-left:18px;position:relative}
+  .step ul.grab li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
+  .step ul.grab li b{color:var(--ink)}
+  .step ul.grab li b.tag{color:var(--accent-strong);font-family:var(--mono);font-size:.78rem;letter-spacing:.03em}
+
+  /* ---- Fundamentals cards ---- */
+  .fund{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .fcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .fcard h3{font-size:1.05rem;color:var(--accent-strong);margin-bottom:8px}
+  .fcard p{color:var(--muted);font-size:.92rem;margin:0}
+  .fcard p b{color:var(--ink)}
+  .fcard .eg{display:block;margin-top:8px;color:var(--muted-2);font-size:.85rem}
+
+  /* ---- Choice table ---- */
+  .choice .opt{color:var(--good);font-weight:700}
+  .choice td b{color:var(--accent-strong)}
+
+  /* ---- Plan cards ---- */
+  .planlist{display:grid;gap:12px}
+  .plan{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--radius);padding:16px 20px}
+  .plan b{color:var(--accent-strong)}
+  .plan p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+
+  /* ---- Callouts ---- */
+  .callout{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--radius);background:var(--surface);padding:18px 20px;margin:24px 0}
+  .callout.crit{border-left-color:var(--danger);background:#fdf5f3}
+  .callout h4{margin:0 0 6px;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+  .callout.crit h4{color:var(--danger)}
+  .callout p:last-child{margin:0}
+  .callout ol{margin:0;padding-left:20px}
+  .callout li{margin-bottom:6px}
+
+  /* ---- Footer ---- */
+  footer{border-top:1px solid var(--line);margin-top:64px;padding:28px 0 40px;color:var(--muted-2);font-size:.85rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* ---- Map grid ---- */
+  .mapgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+  .mapcard{display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;text-decoration:none;transition:transform .15s,border-color .15s}
+  .mapcard:hover{transform:translateY(-3px);border-color:var(--accent);text-decoration:none}
+  .mapcard img{width:100%;height:150px;object-fit:cover;display:block;border-bottom:1px solid var(--line);image-rendering:auto}
+  .maplabel{padding:10px 12px}
+  .maplabel b{display:block;color:var(--ink);font-family:var(--font-d);font-size:.92rem;margin-bottom:2px}
+  .maplabel span{display:block;color:var(--muted-2);font-size:.75rem;line-height:1.4}
+
+
+  /* ---- Reference index chips ---- */
+  .ref-chip{display:inline-block;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--accent-strong);font-family:var(--font-d);font-weight:600;font-size:.82rem;transition:background .15s,border-color .15s,transform .15s}
+  .ref-chip:hover{background:var(--surface-2);border-color:var(--accent);text-decoration:none;transform:translateY(-1px)}
+
+  @media (max-width:640px){
+    .nav-links{display:none}
+    header.hero{padding:40px 0 24px}
+    .ribbon .mon{width:58px;height:58px}
+    .ribbon img{width:42px;height:42px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none!important}
+  }
+  /* ---- Collapsible phases ---- */
+  details.phase{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 18px;box-shadow:0 2px 10px rgba(29,38,50,.05)}
+  details.phase summary{list-style:none;cursor:pointer;padding:18px 22px;background:var(--surface);transition:background .15s;display:flex;align-items:baseline;gap:14px}
+  details.phase summary::-webkit-details-marker{display:none}
+  details.phase summary:hover{background:var(--surface-2)}
+  details.phase summary .chev{margin-left:auto;font-size:.8rem;color:var(--muted-2);transition:transform .2s;align-self:center}
+  details.phase[open] summary .chev{transform:rotate(180deg)}
+  details.phase[open] summary{border-bottom:1px solid var(--line)}
+  details.phase .route{padding:6px 22px 22px}
+  .phase-tools{display:flex;gap:10px;align-items:center;margin:0 0 14px;flex-wrap:wrap}
+  .phase-tools .pt{font-family:var(--font-d);font-weight:600;font-size:.8rem;padding:5px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--accent-strong);cursor:pointer;transition:background .15s,border-color .15s}
+  .phase-tools .pt:hover{background:var(--surface-2);border-color:var(--accent)}
+  .mode-banner{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--radius);background:var(--surface);padding:16px 20px;margin:0 0 22px}
+  .mode-banner h3{margin:0 0 6px;font-size:1rem;color:var(--accent-strong)}
+  .mode-banner p{margin:0;color:var(--muted);font-size:.92rem}
+  .mode-banner p b{color:var(--ink)}
+  .mode-banner .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:10px}
+  .mode-banner .rules div{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.85rem;color:var(--muted)}
+  .mode-banner .rules b{color:var(--ink)}
+</style>
+</head>
+
+<body data-comp="trade" data-hm="farfetchd">
+<style>
+  /* ---- Comp switcher ---- */
+  .compbar{border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:56px;z-index:40}
+  .compbar .wrap{display:flex;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+  .comp-label{font-family:var(--font-d);font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2)}
+  .comp-tabs{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px}
+  .comp-tab{border:none;background:transparent;font-family:var(--font-d);font-weight:600;font-size:.86rem;color:var(--muted);padding:6px 18px;border-radius:999px;cursor:pointer;transition:color .15s,background .15s}
+  .comp-tab:hover{color:var(--ink)}
+  .comp-tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+  .comp-note{color:var(--muted);font-size:.82rem;margin-left:auto}
+  body[data-comp="trade"] [data-comp]:not(.comp-tab):not([data-comp~="trade"]){display:none}
+  body[data-comp="zero"] [data-comp]:not(.comp-tab):not([data-comp~="zero"]){display:none}
+  body[data-comp="speedrun"] [data-comp]:not(.comp-tab):not([data-comp~="speedrun"]){display:none}
+  body[data-comp="nuzlocke"] [data-comp]:not(.comp-tab):not([data-comp~="nuzlocke"]){display:none}
+
+  details{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:8px}
+  details summary{cursor:pointer;padding:14px 18px;font-family:var(--font-d);font-weight:600;font-size:.95rem;background:var(--surface-2);transition:background .15s}
+  details summary:hover{background:var(--line)}
+  details summary::-webkit-details-marker{display:none}
+  details[open]{padding-bottom:14px}
+  details[open] summary{border-bottom:1px solid var(--line);margin-bottom:8px}
+  .phase-sub{color:var(--muted-2);font-weight:400;font-size:.85rem;letter-spacing:0;margin-left:8px}
+
+  /* ---- HM strategy switcher ---- */
+  .compbar.hmbar{position:static;border-top:1px solid var(--line)}
+  .hm-pane{display:none}
+  body[data-hm="none"] .hm-pane[data-hm="none"]{display:block}
+  body[data-hm="farfetchd"] .hm-pane[data-hm="farfetchd"]{display:block}
+  body[data-hm="pidgeot"] .hm-pane[data-hm="pidgeot"]{display:block}
+  body[data-hm="dodrio"] .hm-pane[data-hm="dodrio"]{display:block}
+  body[data-hm="smeargle"] .hm-pane[data-hm="smeargle"]{display:block}
+  body[data-hm="furret"] .hm-pane[data-hm="furret"]{display:block}
+  body[data-hm="none"] .hm-gate:not([data-hm="none"]){display:none}
+  body[data-hm="farfetchd"] .hm-gate:not([data-hm="farfetchd"]){display:none}
+  body[data-hm="pidgeot"] .hm-gate:not([data-hm="pidgeot"]){display:none}
+  body[data-hm="dodrio"] .hm-gate:not([data-hm="dodrio"]){display:none}
+  body[data-hm="smeargle"] .hm-gate:not([data-hm="smeargle"]){display:none}
+  body[data-hm="furret"] .hm-gate:not([data-hm="furret"]){display:none}
+  .hm-ok{color:var(--good);font-weight:700}
+  .hm-bad{color:var(--danger);font-weight:700}
+  .hm-meh{color:var(--muted-2)}</style>
+<nav>
+  <div class="nav-in">
+    <div class="brand"><span class="dot"></span>SoulSilver Guide</div>
+    <div class="nav-links">
+      <a href="#team">Team</a>
+      <a href="#hm">HM</a>
+      <a href="#phase1">P1</a>
+      <a href="#phase2">P2</a>
+      <a href="#phase25">P2.5</a>
+      <a href="#phase3">P3</a>
+      <a href="#phase4">P4</a>
+      <a href="#phase5">P5</a>
+      <a href="#phase6">P6</a>
+      <a href="#ref">Ref</a>
+    </div>
+  </div>
+</nav>
+<div class="compbar">
+  <div class="wrap">
+    <span class="comp-label">Mode</span>
+    <div class="comp-tabs" role="tablist" aria-label="Play mode">
+      <button class="comp-tab" data-comp="trade" role="tab" aria-selected="true">Trade</button>
+      <button class="comp-tab" data-comp="zero" role="tab" aria-selected="false">Zero-trade</button>
+      <button class="comp-tab" data-comp="speedrun" role="tab" aria-selected="false">Speedrun</button>
+      <button class="comp-tab" data-comp="nuzlocke" role="tab" aria-selected="false">Nuzlocke</button>
+    </div>
+    <span class="comp-note" id="compNote"></span>
+  </div>
+</div>
+<div class="compbar hmbar">
+  <div class="wrap">
+    <span class="comp-label">HM strategy</span>
+    <div class="comp-tabs" role="tablist" aria-label="HM strategy">
+      <button class="comp-tab" data-hm="farfetchd" role="tab" aria-selected="true">Farfetch'd</button>
+      <button class="comp-tab" data-hm="smeargle" role="tab" aria-selected="false">Smeargle</button>
+      <button class="comp-tab" data-hm="furret" role="tab" aria-selected="false">Furret</button>
+      <button class="comp-tab" data-hm="pidgeot" role="tab" aria-selected="false">Pidgeot</button>
+      <button class="comp-tab" data-hm="dodrio" role="tab" aria-selected="false">Dodrio</button>
+      <button class="comp-tab" data-hm="none" role="tab" aria-selected="false">No slave</button>
+    </div>
+    <span class="comp-note" id="hmNote"></span>
+  </div>
+</div>
+
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">SoulSilver · Timeline Guide</div>
+    <h1>Follow the timeline — everything you need, when you need it</h1>
+    <p class="lede">Each phase bundles every decision: <b>what to catch, what to grab, what to buy, which moves to keep, which Gym to sweep, and where to save</b>. No jumping between sections — just follow it in order. Verified against Serebii + Bulbapedia (2026-08).</p>
+    <div class="spread">
+      <span class="tier-chip" data-comp="trade">Team: <b>S&nbsp;/&nbsp;S&nbsp;/&nbsp;A&nbsp;/&nbsp;A&nbsp;/&nbsp;A&nbsp;/&nbsp;B</b></span>
+      <span class="tier-chip" data-comp="zero">Team: <b>S&nbsp;/&nbsp;S&nbsp;/&nbsp;B&nbsp;/&nbsp;A&nbsp;/&nbsp;B&nbsp;/&nbsp;B</b></span>
+      <span class="tier-chip" data-comp="trade">2 trade evolutions</span>
+      <span class="tier-chip" data-comp="zero">No trades needed</span>
+      <span class="tier-chip">Fast-forward ready</span>
+      <span class="tier-chip">Offline guide</span>
+    </div>
+    <div class="ribbon" aria-hidden="true" data-comp="trade">
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/typhlosion.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/gyarados.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/alakazam.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/heracross.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/gengar.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/lapras.png" alt=""></span>
+    </div>
+    <div class="ribbon" aria-hidden="true" data-comp="zero">
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/typhlosion.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/gyarados.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/kadabra.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/heracross.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/ampharos.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/lapras.png" alt=""></span>
+    </div>
+    <div class="ribbon" aria-hidden="true" data-comp="speedrun">
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/cyndaquil.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/quilava.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/gyarados.png" alt=""></span>
+    </div>
+    <div class="ribbon" aria-hidden="true" data-comp="nuzlocke">
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/typhlosion.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/ampharos.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/gyarados.png" alt=""></span>
+      <span class="mon"><img src="https://img.pokemondb.net/sprites/home/normal/lapras.png" alt=""></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap" style="margin-top:26px">
+<div class="mode-banner" data-comp="trade">
+  <h3>🔄 Trade Team — the full-power six</h3>
+  <p>The flagship comp. <b>Alakazam + Gengar</b> come online via the Union Room trade (Phase 2.5, ~30–45 min, one-time). Highest ceiling in the game — two S-tier special sweepers and no moveset compromises. Pick this if you can spare one setup session.</p>
+  <div class="rules">
+    <div><b>Team:</b> Typhlosion · Gyarados · Alakazam · Heracross · Gengar · Lapras</div>
+    <div><b>Payoff:</b> S/S/A/A/A/B — the strongest six Johto offers</div>
+    <div><b>Setup:</b> one 30–45 min Union Room trade (see P2.5)</div>
+    <div><b>Downside:</b> none real — trades are one-time and reusable</div>
+  </div>
+</div>
+<div class="mode-banner" data-comp="zero">
+  <h3>🚫 Zero-Trade — no Union Room, no problem</h3>
+  <p>Same timeline, zero trading. <b>Kadabra stays Kadabra</b> (B-tier, lower SpA) and <b>Ampharos</b> (Route 32 Mareep, Electric) replaces Gengar. B-tier ceiling but zero setup — nothing to unlock, no second emulator instance, Phase 2.5 becomes optional.</p>
+  <div class="rules">
+    <div><b>Team:</b> Typhlosion · Gyarados · Kadabra · Heracross · Ampharos · Lapras</div>
+    <div><b>Payoff:</b> S/S/B/A/B/B — every mon catchable without trading</div>
+    <div><b>Setup:</b> none — skip Phase 2.5 entirely</div>
+    <div><b>Downside:</b> Kadabra's lower SpA; Ampharos lacks Levitate + Ghost coverage</div>
+  </div>
+</div>
+<div class="mode-banner" data-comp="speedrun">
+  <h3>⚡ Speedrun — Any% Glitchless</h3>
+  <p>Goal: beat <b>Lance</b> as fast as possible (WR ~1:57 Voltorb-Flip route / ~3:42 manipless). <b>Cyndaquil</b> solos the early game, then a <b>level-50 Magikarp trick</b> hands you an instant Gyarados that carries to the E4. Skip everything optional.</p>
+  <div class="rules">
+    <div><b>Starter:</b> Cyndaquil (best early Fire; Fire Blast from Dept Store)</div>
+    <div><b>Carry:</b> Route-43 level-50 Magikarp → Gyarados</div>
+    <div><b>Skip:</b> trades, Lapras, Heracross, most TMs/items</div>
+    <div><b>Buy:</b> Fire Blast TM + repels at Goldenrod</div>
+  </div>
+</div>
+<div class="mode-banner" data-comp="nuzlocke">
+  <h3>💀 Nuzlocke — Standard Rules</h3>
+  <p>One catch per area (dupes clause), <b>fainted = dead</b> (boxed forever), gift/shiny/static are freebies, no trading (except evo-by-trade). You take what you get — prioritize <b>bulk + coverage</b>, box HM slaves, and overlevel. The freebies (Red Gyarados, Lapras) are your MVPs.</p>
+  <div class="rules">
+    <div><b>Top catches:</b> Cyndaquil, Mareep→Ampharos, Geodude, Nidoran, Wooper</div>
+    <div><b>Freebies:</b> Red Gyarados, Lapras (Fri), Eevee, Togepi</div>
+    <div><b>Avoid relying on:</b> Abra (teleports), Gastly (low-tier)</div>
+    <div><b>Rule:</b> fainted = dead. Overlevel before every gym.</div>
+  </div>
+</div>
+</div>
+<section id="team" data-comp="trade zero">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">01</span><h2>Your Six — At a Glance</h2></div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Slot</th><th>Pokémon</th><th>Tier</th><th>Type</th><th>Role</th><th>Evolves at</th><th>Ability</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><b>Typhlosion</b></td><td><span class="badge b-A">A</span></td><td><span class="type t-fire">Fire</span></td><td>Fire STAB carry</td><td>Quilava 14 → Typhlosion 36</td><td>Blaze</td></tr>
+          <tr><td>2</td><td><b>Gyarados</b></td><td><span class="badge b-S">S</span></td><td><span class="type t-water">Water</span><span class="type t-fly">Flying</span></td><td>Physical sweeper</td><td>Magikarp → 20</td><td>Intimidate</td></tr>
+          <tr data-comp="trade"><td>3</td><td><b>Alakazam</b></td><td><span class="badge b-S">S</span></td><td><span class="type t-psych">Psychic</span></td><td>Special sweeper</td><td>Kadabra → <b>trade</b></td><td>Synchronize</td></tr>
+          <tr data-comp="zero"><td>3</td><td><b>Kadabra</b></td><td><span class="badge b-B">B</span></td><td><span class="type t-psych">Psychic</span></td><td>Special sweeper</td><td>— (no trade)</td><td>Synchronize</td></tr>
+          <tr><td>4</td><td><b>Heracross</b></td><td><span class="badge b-A">A</span></td><td><span class="type t-bug">Bug</span><span class="type t-fight">Fighting</span></td><td>Physical ace</td><td>— (no evolution)</td><td>Guts</td></tr>
+          <tr data-comp="trade"><td>5</td><td><b>Gengar</b></td><td><span class="badge b-A">A</span></td><td><span class="type t-ghost">Ghost</span><span class="type t-poison">Poison</span></td><td>Special attacker</td><td>Haunter → <b>trade</b></td><td>Levitate</td></tr>
+          <tr data-comp="zero"><td>5</td><td><b>Ampharos</b></td><td><span class="badge b-B">B</span></td><td><span class="type t-elec">Electric</span></td><td>Special attacker</td><td>Route 32 Mareep (no trade)</td><td>Static</td></tr>
+          <tr><td>6</td><td><b>Lapras</b></td><td><span class="badge b-B">B</span></td><td><span class="type t-water">Water</span><span class="type t-ice">Ice</span></td><td>Dragon killer</td><td>— (no evolution)</td><td>Water Absorb</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="hm">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">01.5</span><h2>HM Strategy — pick your slave <span class="phase-sub">tabs in the bar above</span></h2></div>
+    <p style="color:var(--muted);max-width:80ch">Your six's optimal sets already carry two HMs for free: <b>Surf</b> (Lapras) and <b>Waterfall</b> (Gyarados) — no moveset damage. The other six HMs (Cut, Fly, Strength, Whirlpool, Rock Smash, Rock Climb) would cost a team member a slot. These tabs decide who carries them. <b>Green = zero moveset damage.</b></p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Strategy</th><th>Slaves</th><th>Fly</th><th>Cut</th><th>Strength</th><th>Whirlpool</th><th>Rock Smash</th><th>Rock Climb</th><th>Zero moveset damage</th><th>Swap</th></tr></thead>
+        <tbody>
+          <tr><td><b>Smeargle</b> — one slave, all 8</td><td>1</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td><span class="badge b-S">YES</span></td><td>none</td></tr>
+          <tr><td><b>Furret + Farfetch'd</b> — easy pick</td><td>1–2</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td class="hm-meh">△</td><td><span class="badge b-S">YES</span></td><td>none</td></tr>
+          <tr><td>Farfetch'd (1 box slave)</td><td>1</td><td class="hm-ok">✓</td><td class="hm-ok">✓</td><td class="hm-bad">G</td><td class="hm-bad">G</td><td class="hm-bad">T/H</td><td class="hm-meh">T/H</td><td>no</td><td>none</td></tr>
+          <tr><td>Pidgeot (1 box slave)</td><td>1</td><td class="hm-ok">✓</td><td class="hm-bad">T/H</td><td class="hm-bad">G</td><td class="hm-bad">G</td><td class="hm-bad">T/H</td><td class="hm-meh">T/H</td><td>no</td><td>none</td></tr>
+          <tr><td>Dodrio swap (Fly in the six)</td><td>0</td><td class="hm-ok">✓</td><td class="hm-bad">T/H</td><td class="hm-bad">G</td><td class="hm-bad">G</td><td class="hm-bad">T/H</td><td class="hm-meh">T/H</td><td>no</td><td><b>Lapras → Doduo</b></td></tr>
+          <tr><td>No slave (current six)</td><td>0</td><td class="hm-bad">✗</td><td class="hm-bad">T/H</td><td class="hm-bad">G</td><td class="hm-bad">G</td><td class="hm-bad">T/H</td><td class="hm-meh">T/H</td><td>no</td><td>none</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--muted-2);font-size:.85rem;margin:6px 0 18px">G = Gyarados · T/H = Typhlosion / Heracross · ✓ = on a slave or already in a member's set (zero team cost) · △ = Rock Climb is post-game only (skip, or Ursaring). Surf (Lapras) + Waterfall (Gyarados) are already in the optimal sets and never counted as damage.</p>
+
+    <div class="hm-pane" data-hm="farfetchd">
+      <div class="callout" style="margin-top:0">
+        <h4>Verdict</h4>
+        <p>The <b>"ok with 1 slave"</b> pick. The free Ilex Forest quest reward carries <b>Fly + Cut</b> in one box slot. Zero team changes. Strength / Whirlpool / Rock Smash still land on the team.</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>HM</th><th>Carrier</th><th>Moveset cost</th></tr></thead>
+          <tbody>
+            <tr><td>Cut</td><td><b>Farfetch'd</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Fly</td><td><b>Farfetch'd</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Surf</td><td>Lapras</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Strength</td><td>Gyarados</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Whirlpool</td><td>Gyarados</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Rock Smash</td><td>Typhlosion / Heracross</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Waterfall</td><td>Gyarados</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Rock Climb</td><td>Typhlosion / Heracross</td><td class="hm-meh">post-game</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scroll" style="margin-top:10px">
+        <table>
+          <thead><tr><th>You gain</th><th>You lose</th><th>Swap</th></tr></thead>
+          <tbody><tr><td>Fly, + Cut freed off the team</td><td>—</td><td>none (box slot)</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="hm-pane" data-hm="smeargle">
+      <div class="callout" style="margin-top:0">
+        <h4>Verdict</h4>
+        <p>The <b>only 100% zero-pollution comp.</b> Smeargle learns every HM via Sketch — one slave covers all 8, none of your six ever touches an HM. Downside: the setup (Ruins of Alph, post-Violet; Sketch each move in battle, Heart Scales to re-learn).</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>HM</th><th>Carrier</th><th>Moveset cost</th></tr></thead>
+          <tbody>
+            <tr><td>Cut</td><td><b>Smeargle</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Fly</td><td><b>Smeargle</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Surf</td><td>Lapras</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Strength</td><td><b>Smeargle</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Whirlpool</td><td><b>Smeargle</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Rock Smash</td><td><b>Smeargle</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Waterfall</td><td>Gyarados</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Rock Climb</td><td><b>Smeargle</b> (slave)</td><td class="hm-ok">free</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scroll" style="margin-top:10px">
+        <table>
+          <thead><tr><th>You gain</th><th>You lose</th><th>Swap</th></tr></thead>
+          <tbody><tr><td>All 8 HMs, zero team damage</td><td>—</td><td>none</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="hm-pane" data-hm="furret">
+      <div class="callout" style="margin-top:0">
+        <h4>Verdict</h4>
+        <p>The <b>easy winner.</b> Sentret (Route 29, minute 1) → Furret at 15 covers Cut / Strength / Whirlpool / Rock Smash. Grab the free Farfetch'd for Fly. Zero moveset damage on the six. Only gap: Rock Climb — post-game only (skip, or Ursaring).</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>HM</th><th>Carrier</th><th>Moveset cost</th></tr></thead>
+          <tbody>
+            <tr><td>Cut</td><td><b>Furret</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Fly</td><td><b>Farfetch'd</b> (slave, Ilex)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Surf</td><td>Lapras</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Strength</td><td><b>Furret</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Whirlpool</td><td><b>Furret</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Rock Smash</td><td><b>Furret</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Waterfall</td><td>Gyarados</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Rock Climb</td><td>— <span class="hm-meh">post-game only</span></td><td class="hm-meh">skip / Ursaring</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scroll" style="margin-top:10px">
+        <table>
+          <thead><tr><th>You gain</th><th>You lose</th><th>Swap</th></tr></thead>
+          <tbody><tr><td>Cut, Strength, Whirlpool, Rock Smash freed + Fly</td><td>— (Rock Climb is post-game only)</td><td>none</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="hm-pane" data-hm="pidgeot">
+      <div class="callout" style="margin-top:0">
+        <h4>Verdict</h4>
+        <p>The simple fallback. Pidgey (Route 29, minute 1) → Pidgeot carries Fly only. It's the weakest option — no Cut, and the other five non-free HMs still pollute the team.</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>HM</th><th>Carrier</th><th>Moveset cost</th></tr></thead>
+          <tbody>
+            <tr><td>Cut</td><td>Typhlosion / Heracross</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Fly</td><td><b>Pidgeot</b> (slave)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Surf</td><td>Lapras</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Strength</td><td>Gyarados</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Whirlpool</td><td>Gyarados</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Rock Smash</td><td>Typhlosion / Heracross</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Waterfall</td><td>Gyarados</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Rock Climb</td><td>Typhlosion / Heracross</td><td class="hm-meh">post-game</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scroll" style="margin-top:10px">
+        <table>
+          <thead><tr><th>You gain</th><th>You lose</th><th>Swap</th></tr></thead>
+          <tbody><tr><td>Fly</td><td>—</td><td>none</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="hm-pane" data-hm="dodrio">
+      <div class="callout" style="margin-top:0">
+        <h4>Verdict</h4>
+        <p>Zero slaves — Fly rides in the team itself. But it costs you <b>Lapras</b> (Ice Beam, Water Absorb, the dragon killer) and turns Gyarados into a 4-HM mule. Only if you refuse both slaves <i>and</i> a box swap.</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>HM</th><th>Carrier</th><th>Moveset cost</th></tr></thead>
+          <tbody>
+            <tr><td>Cut</td><td>Typhlosion / Heracross</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Fly</td><td><b>Dodrio</b> (in the six)</td><td class="hm-ok">free</td></tr>
+            <tr><td>Surf</td><td>Gyarados</td><td class="hm-bad">−1 slot (Lapras is gone)</td></tr>
+            <tr><td>Strength</td><td>Gyarados</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Whirlpool</td><td>Gyarados</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Rock Smash</td><td>Typhlosion / Heracross</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Waterfall</td><td>Gyarados</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Rock Climb</td><td>Typhlosion / Heracross</td><td class="hm-meh">post-game</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scroll" style="margin-top:10px">
+        <table>
+          <thead><tr><th>You gain</th><th>You lose</th><th>Swap</th></tr></thead>
+          <tbody><tr><td>Fly, no slaves</td><td>Lapras (Ice Beam / Water Absorb / dragon killer)</td><td><b>Lapras → Doduo</b> (Route 35, lv 31)</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="hm-pane" data-hm="none">
+      <div class="callout" style="margin-top:0">
+        <h4>Verdict</h4>
+        <p>The gap option. No slave, <b>no Fly at all</b> — you walk everywhere and Rock Tunnel is dark. Every non-free HM pollutes a team member. Only viable if you never want to fast-travel.</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>HM</th><th>Carrier</th><th>Moveset cost</th></tr></thead>
+          <tbody>
+            <tr><td>Cut</td><td>Typhlosion / Heracross</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Fly</td><td>— <span class="hm-bad">none</span></td><td class="hm-bad">no Fly</td></tr>
+            <tr><td>Surf</td><td>Lapras</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Strength</td><td>Gyarados</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Whirlpool</td><td>Gyarados</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Rock Smash</td><td>Typhlosion / Heracross</td><td class="hm-bad">−1 slot</td></tr>
+            <tr><td>Waterfall</td><td>Gyarados</td><td class="hm-ok">already in set</td></tr>
+            <tr><td>Rock Climb</td><td>Typhlosion / Heracross</td><td class="hm-meh">post-game</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-scroll" style="margin-top:10px">
+        <table>
+          <thead><tr><th>You gain</th><th>You lose</th><th>Swap</th></tr></thead>
+          <tbody><tr><td>—</td><td>Fly (walk everywhere)</td><td>none</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap" style="margin-top:8px">
+  <div class="phase-tools">
+    <span style="font-family:var(--font-d);font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2)">Phases</span>
+    <button class="pt" id="expandAll" type="button">Expand all</button>
+    <button class="pt" id="collapseAll" type="button">Collapse all</button>
+  </div>
+</div>
+<section id="phase1">
+  <div class="wrap">
+    <details class="phase" open><summary class="sec-head"><span class="no">02</span><h2>Phase 1 — New Bark → Violet City <span class="phase-sub">(lv 5 → ~12)</span></h2><span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="route">
+
+      <div class="step">
+        <h3><span class="ph">ROUTE</span> The intro</h3>
+        <p>Pick <b>Cyndaquil</b> in Elm's Lab, do the Route 29 tutorial battle, explore Route 30/31, arrive at Violet City. Grind Cyndaquil to ~10 on wild Pokémon before Falkner.</p>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">CATCH</span> Your first two</h3>
+        <ul class="grab">
+          <li><b class="tag">Mon</b> <b>Cyndaquil</b> — starter, minute 1. → Quilava at lv 14 (end of this phase / start of Phase 2)</li>
+          <li><b class="tag">Mon</b> <b>Gastly</b> — Sprout Tower 1F–3F, <b>night only</b> (85% encounter). Catch ONE. → Haunter at 25 (Phase 3)</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GRAB</span> On the way</h3>
+        <ul class="grab">
+          <li><b class="tag">TM</b> <b>TM70 Flash</b> — Sprout Tower Elder, free after clearing the tower</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">MOVES</span> Level-up picks</h3>
+        <ul class="grab">
+          <li><b class="tag">Cynda</b> Tackle → Leer → Smokescreen(lv6) → <b>Ember(lv10)</b> → Quick Attack(lv13). <b>Keep Ember</b> — your only Fire STAB until Flame Wheel at 20.</li>
+          <li><b class="tag">Gastly</b> Hypnosis → Lick → Spite → Mean Look(lv8) → Curse(lv12). <b>Hypnosis</b> helps catching; <b>Mean Look</b> prevents run.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GYM</span> Falkner (Flying)</h3>
+        <p><b>Cyndaquil's Ember</b> 2×s his Pidgey + Pidgeotto. Easy.</p>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">SAVE</span> First durable save</h3>
+        <p><b>In-game save at Violet Poké Center</b> — this creates a real <code>.sav</code> file. Do <b>not</b> leave Violet without it. After saving, back up to OneDrive — see the <a href="#ref-durable">Save Protocol</a> reference.</p>
+      </div>
+
+    </div>
+        <div class="route" data-comp="speedrun">
+      <div class="step"><h3><span class="ph">ROUTE</span> Rush, don't grind</h3><p>Pick <b>Cyndaquil</b>, sprint Route 29/30/31. <b>Don't catch anything</b> — every ball thrown is time lost. Falkner: Ember 2×s.</p></div>
+      <div class="step"><h3><span class="ph">SKIP</span> No Gastly, no TM70 detour</h3><p>Skip Sprout Tower's Gastly hunt entirely. Grab TM70 Flash only if you're already there (it's free after the Elder).</p></div>
+    </div>
+    <div class="route" data-comp="nuzlocke">
+      <div class="step"><h3><span class="ph">CATCH</span> Your first area catches</h3><p>Cyndaquil + first encounters on Route 29/30/31. <b>Gastly is low-tier in nuzlocke</b> (VERY LOW) — don't count on it. Prioritize anything with bulk.</p></div>
+      <div class="step"><h3><span class="ph">GYM</span> Falkner</h3><p>Cyndaquil Ember. Overlevel to ~12 first — nuzlocke = never walk in even.</p></div>
+    </div>
+</details>
+  </div>
+</section>
+
+<section id="phase2">
+  <div class="wrap">
+    <details class="phase" open><summary class="sec-head"><span class="no">03</span><h2>Phase 2 — Azalea → Goldenrod <span class="phase-sub">(lv 12 → ~20)</span></h2><span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="route">
+
+      <div class="step">
+        <h3><span class="ph">ROUTE</span> Through Ilex Forest to Azalea → Goldenrod</h3>
+        <p>Get <b>Headbutt</b> in Ilex Forest from the guy after the Farfetch'd quest. Headbutt the trees in Azalea Town for <b>Heracross</b> (30%, lv 2–5). Beat Bugsy (Quilava rolls him). Grab <b>Charcoal</b> from the kiln owner. Push to Goldenrod — the big city.</p>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">CATCH</span> Team slots 3 and 4</h3>
+        <ul class="grab">
+          <li><b class="tag">Mon</b> <b>Heracross</b> — Azalea trees, 30% encounter (lv 2–5). <b>No evolution.</b> Never misses.</li>
+          <li><b class="tag">Mon</b> <b>Abra</b> — Goldenrod Game Corner, <b>200 coins</b> (lv 15). → Kadabra at 16 (evolve immediately). → Alakazam via trade (Phase 2.5).</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GRAB</span> Items you need here</h3>
+        <ul class="grab">
+          <li><b class="tag">Held</b> <b>Charcoal</b> — Azalea Charcoal Kiln, after Bugsy. → <b>Typhlosion</b> (Fire +20%)</li>
+          <li><b class="tag">TM</b> <b>TM52 Focus Blast</b> — Goldenrod Dept Store 5F, <b>5,500₽</b>. Buy it now. → Typhlosion / Gengar coverage later.</li>
+          <li><b class="tag">TM</b> TM27 <b>Return</b> — Dept Store <b>Sunday</b> lady if your lead Pokémon has high friendship. → Gyarados later.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">BUY</span> Goldenrod Dept Store (Floors 2–5)</h3>
+        <ul class="grab">
+          <li><b class="tag">Buy</b> <b>Super Potion ×5+</b> — 700₽ (2F) — workhorse heal for this whole phase</li>
+          <li><b class="tag">Buy</b> <b>Great Ball ×10</b> — 600₽ (2F) — Heracross + Abra + Lapras tier</li>
+          <li><b class="tag">Buy</b> <b>Ultra Ball ×5</b> — 1,200₽ (2F) — Gyarados + stubborn catches</li>
+          <li><b class="tag">Buy</b> <b>Super Repel ×5</b> — 500₽ (2F) — caves stop being a slog</li>
+          <li><b class="tag">Buy</b> <b>Escape Rope ×2</b> — 550₽ (2F) — Union Cave + Victory Road</li>
+          <li><b class="tag">Skip</b> 3F X-items (not needed), 4F vitamins (9,800₽ — expensive, skip in run), 6F drinks</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">MOVES</span> Level-up picks</h3>
+        <ul class="grab">
+          <li><b class="tag">Quilava</b> Evolve Cynda→Quilava at lv 14. <b>Flame Wheel(lv20)</b> replaces Ember — much stronger Fire STAB.</li>
+          <li><b class="tag">Heracross</b> Endure(lv—) → Fury Attack(lv7) → Aerial Ace(lv13) → <b>Brick Break(lv19)</b>. Brick Break is your main Fighting move until Close Combat at 37.</li>
+          <li><b class="tag">Kadabra</b> Abra→Kadabra at lv16 (learns <b>Confusion</b> on evolution). Then Disable(lv18). Confusion carries through this phase.</li>
+          <li><b class="tag">Gastly</b> Curse(lv12) → Night Shade(lv15) → <b>Confuse Ray(lv19)</b>. Confuse Ray is your utility.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GYM</span> Bugsy → Whitney</h3>
+        <p><b>Bugsy (Bug):</b> Quilava rolls him — Fire STAB 2×s everything.</p>
+        <p><b>Whitney (Normal):</b> first real wall. <b>Heracross Brick Break</b> (lv19) or <b>Kadabra Confusion</b>. Rollout Miltank is the threat — Brick Break breaks through.</p>
+      </div>
+
+    </div>
+        <div class="route" data-comp="speedrun">
+      <div class="step"><h3><span class="ph">ROUTE</span> Straight to Goldenrod</h3><p>Headbutt for <b>Heracross</b> only if a quick tree pops one (optional). Beat Bugsy with Quilava. <b>Buy Fire Blast TM (Dept Store) + repels</b> — this is the run's power spike.</p></div>
+      <div class="step"><h3><span class="ph">GYM</span> Whitney</h3><p>Overleveled Quilava <b>Fire Blast 2HKOs Miltank</b>. Don't waste time on Heracross/Kadabra setup.</p></div>
+    </div>
+    <div class="route" data-comp="nuzlocke">
+      <div class="step"><h3><span class="ph">CATCH</span> The good early mons</h3><p><b>Mareep (Route 32) → Ampharos</b> is a top-tier nuzlocke catch. <b>Geodude</b> walls Bugsy. Heracross (Azalea trees) is solid if it pops. Nidoran/Wooper are great if you see them.</p></div>
+      <div class="step"><h3><span class="ph">GYM</span> Bugsy → Whitney</h3><p>Bugsy: Geodude/Quilava. Whitney: <b>overlevel + don't let Miltank set up Rollout</b> — switch to reset it.</p></div>
+    </div>
+</details>
+  </div>
+</section>
+
+<section id="phase25">
+  <div class="wrap">
+    <details class="phase" open><summary class="sec-head"><span class="no">04</span><h2>Phase 2.5 — The Trade Setup <span class="phase-sub">(lv ~17–22)</span></h2><span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="route" data-comp="trade">
+
+      <div class="step">
+        <h3><span class="ph">⚠️</span> One-time, ~30–45 min. See <a href="#tradesetup">Trade Setup Reference</a> for full walkthrough.</h3>
+        <p>Goldenrod's <b>Union Room</b> (2nd floor Pokécom Center). You trade Kadabra→Alakazam and Haunter→Gengar using a second melonDS instance. Do both in one session.</p>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">RESULT</span> Team power spike</h3>
+        <ul class="grab">
+          <li><b class="tag">Alakazam</b> S-tier. 135 SpA + 120 Speed with Calm Mind later. <b>Entire back half revolves around this Pokémon.</b></li>
+          <li><b class="tag">Gengar</b> A-tier. 130 SpA, Levitate (Ground immunity). Shadow Ball at 33 for free.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">SAVE</span> Save state after both trades complete</h3>
+        <p>Savestate slot 1 (F1) — locks in the team.</p>
+      </div>
+
+    </div>
+
+    <div class="route" data-comp="zero">
+      <div class="step">
+        <h3><span class="ph">SKIP</span> No trade needed — this phase is optional</h3>
+        <p>Zero-trade comp: <b>skip the Union Room entirely.</b> Kadabra stays Kadabra (B-tier, same Psychic moves, lower stats), and the Gengar slot is filled by <b>Ampharos</b> instead — grab a <b>Mareep</b> on Route 32 (early, catches up fast) and evolve it through Flaaffy to Ampharos naturally.</p>
+      </div>
+      <div class="step">
+        <h3><span class="ph">CATCH</span> The Ampharos slot</h3>
+        <ul class="grab">
+          <li><b class="tag">Mon</b> <b>Mareep</b> — Route 32, ~lv 6, 20%/10% encounter. Evolves Flaaffy → Ampharos. No trade, Electric STAB. Grind it alongside the team so it hits the mid-game power curve.</li>
+        </ul>
+      </div>
+      <div class="step">
+        <h3><span class="ph">RESULT</span> Honest trade-off</h3>
+        <ul class="grab">
+          <li><b class="tag">Trade</b> Alakazam S-tier + Gengar A-tier &gt; Kadabra B-tier + Ampharos B-tier. You lose the two trade power spikes (135/120 Alakazam, 130 SpA Ghost sweeps).</li>
+          <li><b class="tag">Gain</b> Zero setup, no second instance, no 30–45 min grind to Goldenrod. Electric coverage you wouldn't otherwise have.</li>
+          <li><b class="tag">E4</b> Ampharos handles Will's Xatu + Lance's Flyers (Electric 2× on Flying); Kadabra keeps Psychic for Koga/Bruno. Just less raw power than the trade versions.</li>
+        </ul>
+      </div>
+        <div class="route" data-comp="speedrun">
+      <div class="step"><h3><span class="ph">SKIP</span> No trades</h3><p>Speedrun never touches the Union Room. Keep moving.</p></div>
+    </div>
+    <div class="route" data-comp="nuzlocke">
+      <div class="step"><h3><span class="ph">SKIP</span> No trades</h3><p>Nuzlocke = no trading (except evo-by-trade). Kadabra stays Kadabra; <b>Ampharos</b> fills the slot. Abra is unreliable (Teleport) — don't plan around it.</p></div>
+    </div>
+</details>
+    </div>
+  </div>
+</section>
+
+<section id="phase3">
+  <div class="wrap">
+    <details class="phase" open><summary class="sec-head"><span class="no">05</span><h2>Phase 3 — Ecruteak → Olivine City <span class="phase-sub">(lv ~20 → 28)</span></h2><span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="route">
+
+      <div class="step">
+        <h3><span class="ph">ROUTE</span> Ecruteak → National Park → Union Cave → Olivine</h3>
+        <p>Beat Morty (Alakazam sweeps). Kimono Girl event at the Dance Theater unlocks <b>Surf</b>. Then Route 38/39, National Park (Quick Claw), Olivine. </p>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">CATCH</span> Slot 6 — Lapras (Friday only)</h3>
+        <ul class="grab">
+          <li><b class="tag">Mon</b> <b>Lapras</b> — Union Cave B2F, <b>Friday only</b>. Enter from Violet City side, surf to the pond at the bottom of B2F. lv 20, one per week. <b>Don't KO it or leave the room</b> — gone until next Friday.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GRAB</span> The mid-game haul</h3>
+        <ul class="grab">
+          <li><b class="tag">Held</b> <b>Quick Claw</b> — National Park (Route 35 side) → Heracross (speed insurance)</li>
+          <li><b class="tag">HM</b> <b>HM06 Rock Smash</b> — Hiker on Route 36</li>
+          <li><b class="tag">TM</b> <b>TM30 Shadow Ball</b> — <b>Morty's gym reward</b> (free!) → Alakazam or Gengar</li>
+          <li><b class="tag">Held</b> <b>Spell Tag</b> — Ecruteak City → Gengar (Ghost +20%)</li>
+          <li><b class="tag">HM</b> <b>HM03 Surf</b> — Dance Theater, Kimono Girl after the Rocket grunt (post-Morty)</li>
+          <li><b class="tag">TM</b> <b>TM57 Charge Beam</b> — Olivine shore, right of the lighthouse → Alakazam</li>
+          <li><b class="tag">Free</b> <b>Moomoo Milk</b> — Miltank farm on Route 38/39 → buy a stack, cheaper than Potions</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">MOVES</span> Level-up picks</h3>
+        <ul class="grab">
+          <li><b class="tag">Alakazam</b> Psybeam(lv24) → Reflect(lv28) → Recover(lv30) → <b>Calm Mind(lv36)</b> next phase. <b>Keep Recover</b> — it's your only reliable healing.</li>
+          <li><b class="tag">Haunter→Gengar</b> Sucker Punch(lv22) → evolves to Haunter at lv25 (learns <b>Shadow Punch</b>) → Payback(lv28) → <b>Shadow Ball(lv33)</b> next phase. <b>Shadow Ball is FREE</b> — don't waste a TM on it.</li>
+          <li><b class="tag">Lapras</b> (caught at lv 20 — already knows Water Pulse/Body Slam). Next: Rain Dance(lv22) → Perish Song(lv27) → <b>Ice Beam(lv32)</b> next phase. Ice Beam is also FREE.</li>
+          <li><b class="tag">Quilava</b> Swift(lv31) coming up — filler. Lava Plume at 35 next phase.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GYM</span> Morty → Chuck → Jasmine</h3>
+        <p><b>Morty (Ghost):</b> <b>Alakazam Confusion/Psychic</b> — Ghost/Poison typing makes Psychic 2×. <b>Clean sweep.</b></p>
+        <p><b>Chuck (Fighting):</b> <b>Alakazam / Gyarados</b> (if you have it early). Return from the Sunday lady helps. Primeape → Poliwrath (Water/Fighting — watch for Surf).</p>
+        <p><b>Jasmine (Steel):</b> <b>Typhlosion / Quilava</b> — Fire STAB 2×s her whole team (Steelix + 2 Magnemite).</p>
+      </div>
+
+    </div>
+        <div class="route" data-comp="speedrun">
+      <div class="step"><h3><span class="ph">ROUTE</span> Morty → Surf</h3><p>Morty: Quilava Fire Blast. Kimono Girl → <b>Surf</b>. <b>Skip Lapras</b> (Friday wait + setup is too slow for a run).</p></div>
+    </div>
+    <div class="route" data-comp="nuzlocke">
+      <div class="step"><h3><span class="ph">CATCH</span> Lapras freebie (Friday)</h3><p><b>Lapras</b> (Union Cave B2F, Friday) is a gift-tier freebie — huge bulk + Ice Beam for Lance. Don't miss the Friday window.</p></div>
+      <div class="step"><h3><span class="ph">GYM</span> Morty → Chuck → Jasmine</h3><p>Morty: Alakazam/Kadabra Psychic. Chuck: watch DynamicPunch — bring Full Heals. Jasmine: Fire STAB.</p></div>
+    </div>
+</details>
+  </div>
+</section>
+
+<section id="phase4">
+  <div class="wrap">
+    <details class="phase" open><summary class="sec-head"><span class="no">06</span><h2>Phase 4 — Cianwood → Lake of Rage <span class="phase-sub">(lv ~28 → 35)</span></h2><span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="route">
+
+      <div class="step">
+        <h3><span class="ph">ROUTE</span> Cianwood → Mahogany → Rocket HQ → Lake of Rage → Pryce</h3>
+        <p>Sail to Cianwood, beat Chuck for the badge + Fly. SecretPotion → Olivine, cure Amphy, Jasmine gives badge. Then Route 42 → Mahogany: Rocket Hideout (Whirlpool HM). Clear Team Rocket, get the <b>free shiny Gyarados</b> at Lake of Rage.</p>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">CATCH</span> Your physical sweeper arrives</h3>
+        <ul class="grab">
+          <li><b class="tag">Mon</b> Gyarados (already evolved — <b>free shiny</b>, Lake of Rage, lv 30). Add to team immediately. <b>Intimidate + Ice Fang at 32</b> makes it useful from minute 1.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GRAB</span> The back-half power items</h3>
+        <ul class="grab">
+          <li><b class="tag">HM</b> <b>HM02 Fly</b> — Cianwood, after Chuck (fast travel unlocked)</li>
+          <li class="hm-gate" data-hm="farfetchd"><b class="tag">Slave</b> <b>Fly + Cut slave</b> — the free <b>Farfetch’d</b> (Ilex Forest quest, Phase 2) carries HM02 Fly + Cut in one box slot. Swap in, Fly, swap out. See <a href="#hm">HM Strategy</a>.</li>
+          <li class="hm-gate" data-hm="smeargle"><b class="tag">Slave</b> <b>HM02 Fly</b> — Smeargle handles it (see <a href="#hm">HM Strategy</a>). No team member touches an HM.</li>
+          <li class="hm-gate" data-hm="furret"><b class="tag">Slave</b> <b>HM02 Fly</b> — Furret covers the other HMs; grab the free <b>Farfetch’d</b> (Ilex) for Fly. See <a href="#hm">HM Strategy</a>.</li>
+          <li class="hm-gate" data-hm="pidgeot"><b class="tag">Slave</b> <b>HM02 Fly</b> — Pidgey (Route 29, minute 1) → Pidgeot carries it. Box mon.</li>
+          <li class="hm-gate" data-hm="dodrio"><b class="tag">Fly</b> — Dodrio (in the team) covers HM02 — no slave needed. See <a href="#hm">HM Strategy</a>.</li>
+          <li class="hm-gate" data-hm="none"><b class="tag">Slave</b> — no Fly slave in this comp. You walk. See <a href="#hm">HM Strategy</a>.</li>
+          <li><b class="tag">HM</b> <b>HM04 Strength</b> — Hiker on Route 42</li>
+          <li><b class="tag">TM</b> <b>TM65 Shadow Claw</b> — Route 42 → Gyarados (physical Ghost coverage)</li>
+          <li><b class="tag">HM</b> <b>HM05 Whirlpool</b> — Lance, Mahogany Rocket Hideout (for Lugia later)</li>
+          <li><b class="tag">TM</b> <b>TM36 Sludge Bomb</b> — Route 43 guard, <b>after</b> Team Rocket leaves Mahogany → Gengar</li>
+          <li><b class="tag">Held</b> <b>Choice Specs</b> — Lake of Rage (Surf needed, north-east patch) → <b>Alakazam</b> (Sp. Atk ×1.5)</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">BUY</span> Cianwood Pharmacy (the only Hyper Potion shop in Johto)</h3>
+        <ul class="grab">
+          <li><b class="tag">Buy</b> <b>Hyper Potion ×5</b> — 1,200₽ each — regular marts don't stock these until badge 5</li>
+          <li><b class="tag">Buy</b> <b>Revive ×3</b> — 1,500₽ — stocked nowhere else this early; grab before Chuck/Jasmine</li>
+          <li><b class="tag">Buy</b> <b>Full Heal ×3</b> — 600₽ — status is the real killer vs Chuck (Primeape's DynamicPunch)</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">MOVES</span> Level-up picks — the team comes online</h3>
+        <ul class="grab">
+          <li><b class="tag">Typhlosion</b> <b>Lava Plume(lv35)</b> → evolve at 36 to Typhlosion! → <b>Flamethrower(lv42)</b> next phase. <b>Lava Plume is the mid-game power spike.</b> Keep it until Flamethrower.</li>
+          <li><b class="tag">Gengar</b> <b>Shadow Ball(lv33)</b> — free, learn naturally. <b>This is your main special Ghost move for the rest of the game.</b></li>
+          <li><b class="tag">Lapras</b> <b>Ice Beam(lv32)</b> — free, learn naturally. <b>This is the Clair + Lance killer.</b></li>
+          <li><b class="tag">Gyarados</b> <b>Ice Fang(lv32)</b> — free! Then Aqua Tail(lv35), Rain Dance(lv38). <b>Dragon Dance(lv44)</b> next phase.</li>
+          <li><b class="tag">Alakazam</b> <b>Calm Mind(lv36)</b> — free setup. Then Psychic(lv40) next phase.</li>
+          <li><b class="tag">Heracross</b> <b>Close Combat(lv37)</b> — free. This replaces Brick Break. <b>Best Fighting move in the game.</b></li>
+        </ul>
+        <div class="callout">
+          <h4>⚠️ Don't waste Game Corner coins</h4>
+          <p>Every move above is <b>learned free by level-up</b> — never spend coins on Flamethrower/Psychic/Ice Beam/Shadow Ball. The only TMs worth buying are <b>TM52 Focus Blast</b> (Dept Store, already in your bag) and <b>TM24 Thunderbolt</b> (Game Corner, optional for Gengar/Lapras).</p>
+        </div>
+        <div class="route" data-comp="speedrun">
+      <div class="step"><h3><span class="ph">CATCH</span> The level-50 Magikarp trick</h3><p>On <b>Route 43</b>, surf with a repel + high-level lead to force a <b>level-50 Magikarp</b> → one Rare Candy → <b>instant Gyarados</b>. This is the run's carry. Grab <b>Strength</b> (Route 42).</p></div>
+      <div class="step"><h3><span class="ph">GYM</span> Pryce</h3><p>Gyarados or Typhlosion. Bench Gyarados if it's 4× Ice-weak — use Typhlosion.</p></div>
+    </div>
+    <div class="route" data-comp="nuzlocke">
+      <div class="step"><h3><span class="ph">CATCH</span> Red Gyarados freebie</h3><p><b>Red Gyarados (Lake of Rage)</b> is the nuzlocke MVP — guaranteed, bulky, Intimidate. Add it immediately.</p></div>
+      <div class="step"><h3><span class="ph">GYM</span> Pryce</h3><p>Bench Gyarados (4× Ice-weak). Typhlosion/Heracross Close Combat.</p></div>
+    </div>
+</details>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GYM</span> Chuck → Jasmine → Pryce</h3>
+        <p><b>Pryce (Ice):</b> <b>Typhlosion or Heracross</b>. Gyarados is 4× weak to Ice — <b>bench it for this fight</b>. Heracross Close Combat 2×s his Dewgong+Piloswine.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="phase5">
+  <div class="wrap">
+    <details class="phase" open><summary class="sec-head"><span class="no">07</span><h2>Phase 5 — Blackthorn → Victory Road <span class="phase-sub">(lv ~35 → 45+)</span></h2><span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="route">
+
+      <div class="step">
+        <h3><span class="ph">ROUTE</span> Ice Path → Blackthorn → Clair → Victory Road</h3>
+        <p>Ice Path (Waterfall HM + Never-Melt Ice). Beat Clair's gym — Lapras Ice Beam sweeps. Then the E4 gauntlet: Victory Road holds TM26 Earthquake and levels.</p>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GRAB</span> Last items before the E4</h3>
+        <ul class="grab">
+          <li><b class="tag">HM</b> <b>HM07 Waterfall</b> — Ice Path dungeon (required to enter the E4 building + Lugia cave)</li>
+          <li><b class="tag">Held</b> <b>Never-Melt Ice</b> — Ice Path → Lapras (Ice +20%)</li>
+          <li><b class="tag">TM</b> <b>TM59 Dragon Pulse</b> — Clair's reward, Blackthorn Gym</li>
+          <li><b class="tag">TM</b> <b>TM26 Earthquake</b> — Victory Road (pick up pre-E4!) → Gyarados (physical coverage for the E4)</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">MOVES</span> Final moveset milestones</h3>
+        <ul class="grab">
+          <li><b class="tag">Typhlosion</b> <b>Flamethrower(lv42)</b> — replaces Lava Plume (stronger, more accurate). Eruption(lv57) is post-game.</li>
+          <li><b class="tag">Alakazam</b> <b>Psychic(lv40)</b> — replaces Confusion/Psybeam. Debuffs Sp. Def 10% — sets up Koga and Will to crumble.</li>
+          <li><b class="tag">Gyarados</b> <b>Dragon Dance(lv44)</b> — +1 Atk +1 Speed. Setup one Dragon Dance → sweep. <b>This is the E4 strategy.</b></li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">GYM</span> Clair (Dragon)</h3>
+        <p><b>Lapras Ice Beam</b> — her Kingdra (Dragon/Water) is 2× weak to Ice, and Lapras has 130 base HP to tank. Give Lapras <b>Never-Melt Ice</b> from Ice Path. <b>Clair gives TM59 Dragon Pulse</b> — nice to have, not essential.</p>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">SAVE</span> Before Victory Road</h3>
+        <p><b>Save state (F1) at Blackthorn Poké Center.</b> Victory Road has tough trainers — don't lose progress. In-game save after every major milestone.</p>
+      </div>
+
+    </div>
+        <div class="route" data-comp="speedrun">
+      <div class="step"><h3><span class="ph">ROUTE</span> Gyarados solos</h3><p>Strength/Surf/Waterfall + <b>Dragon Dance</b>. Clair: Gyarados. Grab TM26 Earthquake (Victory Road) for coverage.</p></div>
+    </div>
+    <div class="route" data-comp="nuzlocke">
+      <div class="step"><h3><span class="ph">ROUTE</span> Overlevel before Clair</h3><p>Clair: Lapras Ice Beam. Grind to ~40+ before Victory Road — nuzlocke deaths are permanent, don't risk it.</p></div>
+    </div>
+</details>
+  </div>
+</section>
+
+<section id="phase6">
+  <div class="wrap">
+    <details class="phase" open><summary class="sec-head"><span class="no">08</span><h2>Phase 6 — Elite Four <span class="phase-sub">(lv ~45, E4 levels 42–50)</span></h2><span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="route">
+
+      <div class="step">
+        <h3><span class="ph">COUNTERS</span> Your six vs the gauntlet</h3>
+        <ul class="grab">
+          <li data-comp="trade"><b class="tag">Will</b> Psychic — <b>Gengar Shadow Ball</b> (Ghost 2× Psychic). Xatu is also Psychic/Flying — Gengar handles it.</li>
+          <li data-comp="zero"><b class="tag">Will</b> Psychic — <b>Ampharos Thunderbolt</b> (Electric 2× Xatu). Xatu is Psychic/Flying. Less coverage than Gengar, still works.</li>
+          <li data-comp="trade"><b class="tag">Koga</b> Poison — <b>Alakazam Psychic</b> (2× Poison). His Muk has high Sp. Def — Calm Mind first.</li>
+          <li data-comp="zero"><b class="tag">Koga</b> Poison — <b>Kadabra Psychic</b> (2× Poison). Lower SpA — level up first / pack X-items.</li>
+          <li data-comp="trade"><b class="tag">Bruno</b> Fighting — <b>Alakazam Psychic / Gyarados Waterfall</b>. His Onix are weak to Water.</li>
+          <li data-comp="zero"><b class="tag">Bruno</b> Fighting — <b>Kadabra Psychic / Gyarados Waterfall</b>. His Onix are weak to Water.</li>
+          <li data-comp="trade"><b class="tag">Karen</b> Dark — <b>Heracross Close Combat</b> (Fighting 2× Dark). Gengar Shadow Ball for Houndoom.</li>
+          <li data-comp="zero"><b class="tag">Karen</b> Dark — <b>Heracross Close Combat</b> (Fighting 2× Dark). Ampharos + Gyarados for Houndoom.</li>
+          <li><b class="tag">Lance</b> Dragon — <b>Lapras Ice Beam</b> (4× his Dragonite). Gyarados Ice Fang for backup.</li>
+        </ul>
+        <p>Lance's team: Gyarados → Dragonite ×3 → Charizard → Aerodactyl. All Flying-typed. Ice 4× on Dragonite, 2× on everything else. Lapras + Ice Beam + Choice Specs Alakazam backup = clean.</p>
+      </div>
+
+      <div class="step">
+        <h3><span class="ph">OPTIONAL</span> Lugia swap</h3>
+        <p>Grab <b>Lugia</b> (Whirl Islands, lv 45, needs Whirlpool) before the E4 and swap in for Typhlosion — Fire is dead weight in this fight. Lugia with Surf/Aeroblast covers Will+Koga+Bruno better.</p>
+      </div>
+
+    </div>
+        <div class="route" data-comp="speedrun">
+      <div class="step"><h3><span class="ph">COUNTERS</span> Gyarados sweeps</h3><p>Dragon Dance once, then sweep. Will/Karen lead with Confuse Ray — be careful with multiple DDs. Lance: Gyarados Ice Fang / Waterfall.</p></div>
+    </div>
+    <div class="route" data-comp="nuzlocke">
+      <div class="step"><h3><span class="ph">COUNTERS</span> Use your freebies</h3><p>Lance: Lapras Ice Beam (4× Dragonite). Gyarados backup. Overlevel to ~45+ and heal between every E4 member.</p></div>
+    </div>
+</details>
+  </div>
+</section>
+
+<section id="ref">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">09</span><h2>Reference — Everything else, collapsed</h2></div>
+    <p style="color:var(--muted);max-width:80ch">Click any section to expand. The timeline above covers your run; these are the details when you need them.</p>
+    <div class="ref-index" style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px">
+      <a class="ref-chip" href="#ref-moveset">📋 Movesets</a>
+      <a class="ref-chip" href="#ref-maps">🗺️ Maps</a>
+      <a class="ref-chip" href="#ref-shiny">✨ Shinies</a>
+      <a class="ref-chip" href="#ref-fundamentals">🎮 Fundamentals</a>
+      <a class="ref-chip" href="#ref-choices">✅ Choices</a>
+      <a class="ref-chip" href="#ref-longterm">🏆 Post-E4</a>
+      <a class="ref-chip" href="#tradesetup">🔁 Trade Setup</a>
+      <a class="ref-chip" href="#ref-durable">💾 Save Protocol</a>
+    </div>
+
+    <div style="display:grid;gap:12px;margin-top:6px">
+
+<details id="ref-moveset">
+<summary><strong>📋 Full Moveset Table</strong> — what each member runs at the E4</summary>
+<div class="table-scroll" style="margin-top:12px">
+<table class="moves">
+<thead><tr><th>Pokémon</th><th>Move 1</th><th>Move 2</th><th>Move 3</th><th>Move 4</th></tr></thead>
+<tbody>
+<tr>
+  <td><b>Typhlosion</b> <span class="type t-fire">Fire</span></td>
+  <td><span class="mv">Flamethrower</span> <span class="spec">Sp</span> <span class="lvl">lv 42</span></td>
+  <td><span class="mv">Lava Plume</span> <span class="spec">Sp</span> <span class="lvl">lv 35</span></td>
+  <td><span class="mv">Solar Beam</span> <span class="spec">Sp</span> <span class="lvl">TM22</span></td>
+  <td><span class="mv">Focus Blast</span> <span class="spec">Sp</span> <span class="lvl">TM52</span> <span class="lvl">· Eruption lv 57</span></td>
+</tr>
+<tr>
+  <td><b>Gyarados</b> <span class="type t-water">Water</span><span class="type t-fly">Flying</span></td>
+  <td><span class="mv">Waterfall</span> <span class="phys">Ph</span> <span class="lvl">HM07</span></td>
+  <td><span class="mv">Return</span> <span class="phys">Ph</span> <span class="lvl">TM27</span></td>
+  <td><span class="mv">Ice Fang</span> <span class="phys">Ph</span> <span class="lvl">lv 32</span></td>
+  <td><span class="mv">Dragon Dance</span> <span class="lvl">lv 44</span> <span class="phys">·</span> setup</td>
+</tr>
+  <tr data-comp="trade">
+
+  <td><b>Alakazam</b> <span class="type t-psych">Psychic</span></td>
+  <td><span class="mv">Psychic</span> <span class="spec">Sp</span> <span class="lvl">lv 40</span> <span class="spec">·</span> free</td>
+  <td><span class="mv">Shadow Ball</span> <span class="spec">Sp</span> <span class="lvl">TM30</span></td>
+  <td><span class="mv">Charge Beam</span> <span class="spec">Sp</span> <span class="lvl">TM57</span></td>
+  <td><span class="mv">Calm Mind</span> <span class="lvl">lv 36</span> <span class="spec">·</span> setup</td>
+</tr>
+<tr data-comp="zero">
+  <td><b>Kadabra</b> <span class="type t-psych">Psychic</span></td>
+  <td><span class="mv">Psychic</span> <span class="spec">Sp</span> <span class="lvl">lv 40</span> <span class="spec">·</span> free</td>
+  <td><span class="mv">Psybeam</span> <span class="spec">Sp</span> <span class="lvl">lv 24</span></td>
+  <td><span class="mv">Charge Beam</span> <span class="spec">Sp</span> <span class="lvl">TM57</span></td>
+  <td><span class="mv">Recover</span> <span class="lvl">lv 30</span> <span class="spec">·</span> no Calm Mind trade</td>
+</tr>
+<tr>
+  <td><b>Heracross</b> <span class="type t-bug">Bug</span><span class="type t-fight">Fighting</span></td>
+  <td><span class="mv">Close Combat</span> <span class="phys">Ph</span> <span class="lvl">lv 37</span></td>
+  <td><span class="mv">Megahorn</span> <span class="phys">Ph</span> <span class="lvl">lv 55 · late</span></td>
+  <td><span class="mv">Aerial Ace</span> <span class="phys">Ph</span> <span class="lvl">lv 13</span></td>
+  <td><span class="mv">Brick Break</span> <span class="phys">Ph</span> <span class="lvl">lv 19 → CC at 37</span></td>
+</tr>
+  <tr data-comp="trade">
+  <td><b>Gengar</b> <span class="type t-ghost">Ghost</span><span class="type t-poison">Poison</span></td>
+  <td><span class="mv">Shadow Ball</span> <span class="spec">Sp</span> <span class="lvl">lv 33</span> <span class="spec">·</span> free</td>
+  <td><span class="mv">Sludge Bomb</span> <span class="spec">Sp</span> <span class="lvl">TM36</span></td>
+  <td><span class="mv">Thunderbolt</span> <span class="spec">Sp</span> <span class="lvl">TM24</span></td>
+  <td><span class="mv">Focus Blast</span> <span class="spec">Sp</span> <span class="lvl">TM52</span></td>
+</tr>
+<tr data-comp="zero">
+  <td><b>Ampharos</b> <span class="type t-elec">Electric</span></td>
+  <td><span class="mv">Thunderbolt</span> <span class="spec">Sp</span> <span class="lvl">TM24</span></td>
+  <td><span class="mv">Thunder</span> <span class="spec">Sp</span> <span class="lvl">lv 47 · late</span></td>
+  <td><span class="mv">Charge Beam</span> <span class="spec">Sp</span> <span class="lvl">TM57</span></td>
+  <td><span class="mv">Signal Beam</span> <span class="spec">Sp</span> <span class="lvl">lv 41</span></td>
+</tr>
+<tr>
+  <td><b>Lapras</b> <span class="type t-water">Water</span><span class="type t-ice">Ice</span></td>
+  <td><span class="mv">Surf</span> <span class="spec">Sp</span> <span class="lvl">HM03</span></td>
+  <td><span class="mv">Ice Beam</span> <span class="spec">Sp</span> <span class="lvl">lv 32</span> <span class="spec">·</span> free</td>
+  <td><span class="mv">Thunderbolt</span> <span class="spec">Sp</span> <span class="lvl">TM24</span></td>
+  <td><span class="mv">Confuse Ray</span> <span class="lvl">lv 7</span> <span class="phys">·</span> Body Slam</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<details id="ref-maps">
+<summary><strong>🗺️ Maps</strong> — 18 maps for Johto + Kanto</summary>
+<div class="mapgrid" style="margin-top:12px">
+<a class="mapcard" href="maps/full-region-map.png" target="_blank" rel="noopener" title="Open Full Region full-size"><img src="maps/full-region-map.png" alt="Full Region map" loading="lazy"><div class="maplabel"><b>Full Region</b><span>Whole Johto + Kanto</span></div></a>
+<a class="mapcard" href="maps/johto-region-map.png" target="_blank" rel="noopener" title="Open Johto full-size"><img src="maps/johto-region-map.png" alt="Johto map" loading="lazy"><div class="maplabel"><b>Johto</b><span>Main region — Phase 1–5</span></div></a>
+<a class="mapcard" href="maps/kanto-region-map.png" target="_blank" rel="noopener" title="Open Kanto full-size"><img src="maps/kanto-region-map.png" alt="Kanto map" loading="lazy"><div class="maplabel"><b>Kanto</b><span>Post-game — 8 more badges</span></div></a>
+<a class="mapcard" href="maps/ilex-forest.png" target="_blank" rel="noopener" title="Open Ilex Forest full-size"><img src="maps/ilex-forest.png" alt="Ilex Forest map" loading="lazy"><div class="maplabel"><b>Ilex Forest</b><span>Headbutt HM</span></div></a>
+<a class="mapcard" href="maps/slowpoke-well.png" target="_blank" rel="noopener" title="Open Slowpoke Well full-size"><img src="maps/slowpoke-well.png" alt="Slowpoke Well map" loading="lazy"><div class="maplabel"><b>Slowpoke Well</b><span>Azalea</span></div></a>
+<a class="mapcard" href="maps/union-cave.png" target="_blank" rel="noopener" title="Open Union Cave full-size"><img src="maps/union-cave.png" alt="Union Cave map" loading="lazy"><div class="maplabel"><b>Union Cave</b><span>Lapras (Friday, B2F)</span></div></a>
+<a class="mapcard" href="maps/dark-cave.png" target="_blank" rel="noopener" title="Open Dark Cave full-size"><img src="maps/dark-cave.png" alt="Dark Cave map" loading="lazy"><div class="maplabel"><b>Dark Cave</b><span>Route 45 / 46 connector</span></div></a>
+<a class="mapcard" href="maps/mt-moon.png" target="_blank" rel="noopener" title="Open Mt Moon full-size"><img src="maps/mt-moon.png" alt="Mt Moon map" loading="lazy"><div class="maplabel"><b>Mt Moon</b><span>Route 3 (Kanto)</span></div></a>
+<a class="mapcard" href="maps/rock-tunnel.png" target="_blank" rel="noopener" title="Open Rock Tunnel full-size"><img src="maps/rock-tunnel.png" alt="Rock Tunnel map" loading="lazy"><div class="maplabel"><b>Rock Tunnel</b><span>Route 9 (Kanto)</span></div></a>
+<a class="mapcard" href="maps/mt-mortar.png" target="_blank" rel="noopener" title="Open Mt Mortar full-size"><img src="maps/mt-mortar.png" alt="Mt Mortar map" loading="lazy"><div class="maplabel"><b>Mt Mortar</b><span>Route 42 side cave</span></div></a>
+<a class="mapcard" href="maps/seafoam-islands.png" target="_blank" rel="noopener" title="Open Seafoam Islands full-size"><img src="maps/seafoam-islands.png" alt="Seafoam Islands map" loading="lazy"><div class="maplabel"><b>Seafoam Islands</b><span>Route 20 (Kanto)</span></div></a>
+<a class="mapcard" href="maps/ice-path.png" target="_blank" rel="noopener" title="Open Ice Path full-size"><img src="maps/ice-path.png" alt="Ice Path map" loading="lazy"><div class="maplabel"><b>Ice Path</b><span>Waterfall HM + Never-Melt Ice</span></div></a>
+<a class="mapcard" href="maps/whirl-islands.png" target="_blank" rel="noopener" title="Open Whirl Islands full-size"><img src="maps/whirl-islands.png" alt="Whirl Islands map" loading="lazy"><div class="maplabel"><b>Whirl Islands</b><span>Lugia (lv 45)</span></div></a>
+<a class="mapcard" href="maps/bell-tower.png" target="_blank" rel="noopener" title="Open Bell Tower full-size"><img src="maps/bell-tower.png" alt="Bell Tower map" loading="lazy"><div class="maplabel"><b>Bell Tower</b><span>Ho-Oh (post-game)</span></div></a>
+<a class="mapcard" href="maps/mt-silver.png" target="_blank" rel="noopener" title="Open Mt Silver full-size"><img src="maps/mt-silver.png" alt="Mt Silver map" loading="lazy"><div class="maplabel"><b>Mt Silver</b><span>Red — the true endgame</span></div></a>
+<a class="mapcard" href="maps/cerulean-cave.png" target="_blank" rel="noopener" title="Open Cerulean Cave full-size"><img src="maps/cerulean-cave.png" alt="Cerulean Cave map" loading="lazy"><div class="maplabel"><b>Cerulean Cave</b><span>Mewtwo (post-game)</span></div></a>
+<a class="mapcard" href="maps/victory-road.png" target="_blank" rel="noopener" title="Open Victory Road full-size"><img src="maps/victory-road.png" alt="Victory Road map" loading="lazy"><div class="maplabel"><b>Victory Road</b><span>E4 path + TM26 Earthquake</span></div></a>
+<a class="mapcard" href="maps/viridian-forest.png" target="_blank" rel="noopener" title="Open Viridian Forest full-size"><img src="maps/viridian-forest.png" alt="Viridian Forest map" loading="lazy"><div class="maplabel"><b>Viridian Forest</b><span>Route 2 (Kanto)</span></div></a>
+</div>
+</details>
+
+<details id="ref-shiny">
+<summary><strong>✨ Shiny Versions</strong> — bragging rights for the patient</summary>
+<div class="table-scroll" style="margin-top:12px">
+<table>
+<thead><tr><th>Member</th><th>Shiny method</th><th>Where / when</th><th>Odds</th></tr></thead>
+<tbody>
+<tr><td><img src="https://img.pokemondb.net/sprites/home/shiny/gyarados.png" alt="" style="width:44px;vertical-align:middle;margin-right:8px">Gyarados</td><td><b>Guaranteed</b> — always shiny</td><td>Lake of Rage, Phase 4</td><td><b>100%</b></td></tr>
+<tr><td><img src="https://img.pokemondb.net/sprites/home/shiny/typhlosion.png" alt="" style="width:44px;vertical-align:middle;margin-right:8px">Typhlosion</td><td>Soft-reset starter; save before taking Cyndaquil, check after Route 29 Rival</td><td>New Bark, minute 1</td><td>~1/8192</td></tr>
+<tr><td><img src="https://img.pokemondb.net/sprites/home/shiny/heracross.png" alt="" style="width:44px;vertical-align:middle;margin-right:8px">Heracross</td><td>Keep headbutting Azalea trees</td><td>Azalea, post-Bugsy</td><td>~1/27,000 per headbutt</td></tr>
+<tr><td><img src="https://img.pokemondb.net/sprites/home/shiny/gengar.png" alt="" style="width:44px;vertical-align:middle;margin-right:8px">Gengar</td><td>Grind Sprout Tower at night (85% Gastly — fastest team hunt)</td><td>Sprout Tower 1F–3F, night</td><td>~1/8192</td></tr>
+<tr><td><img src="https://img.pokemondb.net/sprites/home/shiny/alakazam.png" alt="" style="width:44px;vertical-align:middle;margin-right:8px">Alakazam</td><td>Soft-reset Game Corner Abra purchase</td><td>Goldenrod Game Corner</td><td>~1/8192</td></tr>
+<tr><td><img src="https://img.pokemondb.net/sprites/home/shiny/lapras.png" alt="" style="width:44px;vertical-align:middle;margin-right:8px">Lapras</td><td>Save before Friday encounter on B2F; SR until shiny</td><td>Union Cave B2F, Friday</td><td>~1/8192</td></tr>
+</tbody>
+</table>
+</div>
+<p style="color:var(--muted-2);font-size:.85rem;margin-top:4px">Reality check: ~8,000+ encounters per member at base odds. Full shiny six = hundreds of hours. Take the free Gyarados, maybe hunt Gengar (Sprout Tower fastest) if you want a second.</p>
+</details>
+
+<details id="ref-fundamentals">
+<summary><strong>🎮 Game-Design Fundamentals</strong> — why the team works</summary>
+<div class="fund" style="margin-top:12px">
+<div class="fcard"><h3>STAB &amp; type matchups</h3><p><b>STAB</b> = Same-Type Attack Bonus: ×1.5 when move type matches user type. <b>Type effectiveness</b> (2× / ½× / 0×) is the single biggest damage multiplier — one correct type hit beats any stat lead.</p><span class="eg">Typhlosion's Fire moves get STAB; Fire on Grass/Bug 2×s.</span></div>
+<div class="fcard"><h3>Physical vs Special — Gen 4 split</h3><p>Gen 4 was the first generation where every <b>move</b> has its own category (not the type). <b>Special:</b> Shadow Ball, Flamethrower, Ice Beam, Psychic, Surf, Thunderbolt, Sludge Bomb. <b>Physical:</b> Close Combat, Waterfall, Ice Fang, Return, Brick Break, Aerial Ace.</p><span class="eg">Gengar (130 SpA) uses Special Shadow Ball; Heracross (125 Atk) uses Physical Close Combat — match move category to the stat.</span></div>
+<div class="fcard"><h3>Natures, EVs, IVs</h3><p>Don't reset for them in a story run. Prefer <b>Modest</b> (+SpA −Atk) on special attackers, <b>Adamant</b> (+Atk −SpA) on physical ones. Levels + type matchups carry a playthrough.</p></div>
+<div class="fcard"><h3>Abilities</h3><p><b>Guts</b> (Heracross): ×1.5 Atk when statused — burn makes it hit harder. <b>Intimidate</b> (Gyarados): drops foe's Atk on switch-in. <b>Levitate</b> (Gengar): immune to Ground.</p></div>
+</div>
+</details>
+
+<details id="ref-choices">
+<summary><strong>✅ Choice Table</strong> — what was decided for this run</summary>
+<div class="table-scroll" style="margin-top:12px">
+<table class="choice">
+<thead><tr><th>Decision</th><th>Pick</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td><b>Starter</b></td><td class="opt">Cyndaquil</td><td>Only early Fire-type; A-tier</td></tr>
+<tr data-comp="trade"><td><b>Trade evolutions</b></td><td class="opt">Yes</td><td>S/A-tier upgrades, one 30-min setup</td></tr>
+<tr data-comp="zero"><td><b>No-trade fallback</b></td><td class="opt">Kadabra + Ampharos</td><td>The active team here: Kadabra stays Kadabra (no trade), Ampharos replaces Gengar (Route 32 Mareep, Electric). B-tier but zero setup</td></tr>
+<tr><td><b>Eevee</b></td><td>Skip</td><td>C-tier; no room</td></tr>
+<tr><td><b>Scyther / Scizor</b></td><td>Skip</td><td>B-tier, worse than Heracross</td></tr>
+<tr><td><b>Dragonite / Tyranitar</b></td><td>Skip</td><td>Evolve at 55, E4 caps at 42–44</td></tr>
+<tr><td><b>Lugia</b></td><td>Optional E4 swap</td><td>Fire is dead weight at E4</td></tr>
+<tr class="hm-gate" data-hm="farfetchd"><td><b>HM / Fly slave</b></td><td class="opt">Farfetch'd</td><td>Free Ilex Forest quest reward — Fly + Cut in one box slot, zero team changes</td></tr>
+<tr class="hm-gate" data-hm="smeargle"><td><b>HM slave</b></td><td class="opt">Smeargle</td><td>Learns all 8 HMs via Sketch — the only zero-moveset-damage comp</td></tr>
+<tr class="hm-gate" data-hm="furret"><td><b>HM slave</b></td><td class="opt">Furret + Farfetch'd</td><td>Route 29 Sentret → 5 HMs; free Farfetch'd for Fly</td></tr>
+<tr class="hm-gate" data-hm="pidgeot"><td><b>HM / Fly slave</b></td><td class="opt">Pidgeot</td><td>Route 29 Pidgey → Fly only</td></tr>
+<tr class="hm-gate" data-hm="dodrio"><td><b>Fly carrier</b></td><td class="opt">Dodrio</td><td>Route 35 Doduo in the six — Lapras swapped out, no slave</td></tr>
+<tr class="hm-gate" data-hm="none"><td><b>HM slave</b></td><td>None</td><td>No Fly — every other HM pollutes a team member</td></tr>
+<tr><td><b>Natures</b></td><td>Don't reset</td><td>Story run — levels carry</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<details id="ref-longterm">
+<summary><strong>🏆 Long-Term Plan</strong> — after the E4</summary>
+<div class="planlist" style="margin-top:12px">
+<div class="plan"><b>1. Beat the Elite Four</b><p>Credits roll, but Kanto opens.</p></div>
+<div class="plan"><b>2. Red on Mt. Silver</b> — lv 80+ true endgame.<p>Level your team to ~75+.</p></div>
+<div class="plan"><b>3. Lugia (lv 45)</b> — Whirl Islands, pre/post E4.<p>Biggest single power-up for the back half.</p></div>
+<div class="plan"><b>4. Legendaries</b> — 3 beasts (roaming), Ho-Oh (Bell Tower), Mewtwo (Cerulean Cave).</div>
+<div class="plan"><b>5. Safari Zone</b> opens post-game — Chansey for Lucky Egg grinding.</div>
+</div>
+</details>
+
+<details id="tradesetup">
+<summary><strong>🔁 Trade Setup</strong> — how to get Alakazam + Gengar</summary>
+<div class="callout" style="margin-top:12px">
+<ol>
+<li><b>Copy the ROM to a second folder</b> — separate folder = separate <code>.sav</code> = different trainer ID (required).</li>
+<li><b>Launch both</b> (melonDS: System → Multiplayer → Launch new instance), fast-forward the second to Goldenrod (~30–45 min).</li>
+<li><b>Use the Union Room</b> (Goldenrod Pokécom Center, 2nd floor). Trade Kadabra + Haunter over, they evolve, trade back.</li>
+<li>Done — every future trade evolution is unlocked with that second instance.</li>
+</ol>
+</div>
+</details>
+
+<details id="ref-durable">
+<summary><strong>💾 Durable Save Protocol</strong> — from the lost run (CRITICAL)</summary>
+<div class="callout crit" style="margin-top:12px">
+<ol>
+<li><b>In-game save to <code>.sav</code> FIRST</b> — the durable format that survives crashes.</li>
+<li>Savestates (<code>.ml1</code>) are for point-in-time captures only.</li>
+<li>Back up both to OneDrive and <b>verify the backup</b>.</li>
+<li>The autosave loop (rotates slots 1–8 + OneDrive backup) protects the <code>.sav</code> once it exists.</li>
+</ol>
+</div>
+</details>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong>SoulSilver Timeline Guide</strong><br>
+      <span style="color:var(--muted-2)">Trade team · Zero-trade fallback (see Choices) · HM strategy tabs · Fast-forward ready · Updated 2026-08-25</span>
+    </div>
+    <div>
+      <a href="https://www.smogon.com/ingame/guides/hgss_ingame_tier" target="_blank" rel="noopener">Smogon HGSS Tier List</a><br>
+      <a href="https://www.serebii.net/heartgoldsoulsilver/items.shtml" target="_blank" rel="noopener">Serebii Item Locations</a><br>
+      Sprites via <a href="https://pokemondb.net" target="_blank" rel="noopener">PokémonDB</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var COMP_KEY = 'ss-comp';
+  var NOTE = {
+    trade: 'Alakazam + Gengar via Union Room trade — the full-power comp',
+    zero:  'Kadabra + Ampharos — zero setup, B-tier but no trade needed',
+    speedrun: 'Any% glitchless — Cyndaquil solo, Fire Blast, level-50 Gyarados carry',
+    nuzlocke: 'One catch per area, fainted = dead. Take what you get; freebies carry.'
+  };
+  var HM_KEY = 'ss-hm';
+  var HNOTE = {
+    none:      'No slave — no Fly, movesets take 5 HM hits',
+    farfetchd: 'Free Ilex quest reward — Fly + Cut in one box slot (recommended)',
+    pidgeot:   'Pidgey (Route 29) → Fly only, weakest option',
+    dodrio:    'Route 35 Doduo in the six — Lapras out, no slave',
+    smeargle:  'Learns all 8 HMs via Sketch — zero moveset damage',
+    furret:    'Route 29 Sentret → 5 HMs + free Farfetch\u2019d for Fly — the easy pick'
+  };
+  function apply(comp){
+    document.body.setAttribute('data-comp', comp);
+    var tabs = document.querySelectorAll('.comp-tab[data-comp]');
+    for(var i=0;i<tabs.length;i++){
+      var on = tabs[i].getAttribute('data-comp') === comp;
+      tabs[i].setAttribute('aria-selected', on ? 'true' : 'false');
+      tabs[i].setAttribute('tabindex', on ? '0' : '-1');
+    }
+    var n = document.getElementById('compNote');
+    if(n) n.textContent = NOTE[comp] || '';
+    try{ localStorage.setItem(COMP_KEY, comp); }catch(e){}
+  }
+  function applyHM(hm){
+    document.body.setAttribute('data-hm', hm);
+    var tabs = document.querySelectorAll('.comp-tab[data-hm]');
+    for(var i=0;i<tabs.length;i++){
+      var on = tabs[i].getAttribute('data-hm') === hm;
+      tabs[i].setAttribute('aria-selected', on ? 'true' : 'false');
+      tabs[i].setAttribute('tabindex', on ? '0' : '-1');
+    }
+    var n = document.getElementById('hmNote');
+    if(n) n.textContent = HNOTE[hm] || '';
+    try{ localStorage.setItem(HM_KEY, hm); }catch(e){}
+  }
+  var tabs = document.querySelectorAll('.comp-tab[data-comp]');
+  for(var i=0;i<tabs.length;i++){
+    tabs[i].addEventListener('click', function(){
+      apply(this.getAttribute('data-comp'));
+    });
+  }
+  var hmtabs = document.querySelectorAll('.comp-tab[data-hm]');
+  for(var j=0;j<hmtabs.length;j++){
+    hmtabs[j].addEventListener('click', function(){
+      applyHM(this.getAttribute('data-hm'));
+    });
+  }
+  var saved = null;
+  try{ saved = localStorage.getItem(COMP_KEY); }catch(e){}
+  var VALID = ['trade','zero','speedrun','nuzlocke'];
+  apply(VALID.indexOf(saved) >= 0 ? saved : 'trade');
+  var savedHM = null;
+  try{ savedHM = localStorage.getItem(HM_KEY); }catch(e){}
+  var VALID_HM = { none:1, farfetchd:1, pidgeot:1, dodrio:1, smeargle:1, furret:1 };
+  applyHM(VALID_HM[savedHM] ? savedHM : 'farfetchd');
+  function openFromHash(){
+    var h = location.hash;
+    if(!h) return;
+    var el = document.querySelector(h);
+    if(el && el.tagName === 'DETAILS'){ el.setAttribute('open',''); setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 60); }
+  }
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
+  // Expand / collapse all phases
+  function setAll(open){
+    var ph = document.querySelectorAll('details.phase');
+    for(var i=0;i<ph.length;i++){ if(open) ph[i].setAttribute('open',''); else ph[i].removeAttribute('open'); }
+  }
+  var ex = document.getElementById('expandAll'), co = document.getElementById('collapseAll');
+  if(ex) ex.addEventListener('click', function(){ setAll(true); });
+  if(co) co.addEventListener('click', function(){ setAll(false); });
+})();
+</script>
+
+</body>
+</html>
