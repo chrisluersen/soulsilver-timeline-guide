@@ -61,5 +61,5 @@ Baloo 2 is loaded from Google Fonts with graceful fallback to Space Grotesk/syst
 
 ## Where used / source
 
-- Source file: `C:\Users\chris\AppData\Local\hermes\wiki\plans\soulsilver-guide.html`
+- Source file: the local design plan that generated this page (not tracked in this repo)
 - Live URL: `https://soulsilver.localhost`
